@@ -3,34 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 22:18:53 by alistair          #+#    #+#             */
-/*   Updated: 2022/06/14 22:41:03 by alistair         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:48:38 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <cctype>
-#include <cstring>
 
 int main(int argc, char **argv)
 {
 	if (argc > 1)
-	{
 		for (int i = 1; i < argc; i++)
-		{
-			for (size_t j = 0; j < strlen(argv[i]); j++)
-			{
-				if (isalnum(argv[i][j]))
-					argv[i][j] = toupper(argv[i][j]);
-				std::cout << argv[i][j];
-			}
-			std::cout << " ";
-		}
-	}
+			for (int j = 0; argv[i][j] != '\0'; j++)
+				std::cout << (char)(isalnum(argv[i][j]) ? toupper(argv[i][j]) : argv[i][j]);
 	else
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
-	std::cout << "\n";	
+		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *"; 
+	std::cout << std::endl;
 	return (0);
 }
