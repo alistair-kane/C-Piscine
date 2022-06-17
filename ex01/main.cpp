@@ -6,18 +6,29 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:33:20 by alkane            #+#    #+#             */
-/*   Updated: 2022/06/17 12:36:40 by alkane           ###   ########.fr       */
+/*   Updated: 2022/06/17 15:15:25 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
-#include "Contact.hpp"
 
 int main(void)
 {
-    do
-    {  
+	PhoneBook	AmazingPhoneBook;
+	std::string	input;
 
-    }
-    while
+	do
+	{
+		std::cout << 
+			"Please enter one of the following commands: [ADD] [SEARCH] [EXIT]"
+				<< std::endl;
+		std::getline(std::cin, input);
+		if (input.compare("ADD") == 0)
+			AmazingPhoneBook.add();
+		else if (input.compare("SEARCH") == 0)
+			AmazingPhoneBook.search();
+		else
+			std::cerr << input << " : Invalid input" << std::endl;
+	}
+	while (input.compare("EXIT") != 0 );
 }
