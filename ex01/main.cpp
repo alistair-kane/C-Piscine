@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:33:20 by alkane            #+#    #+#             */
-/*   Updated: 2022/06/17 15:15:25 by alkane           ###   ########.fr       */
+/*   Updated: 2022/06/17 18:52:14 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ int main(void)
 				<< std::endl;
 		std::getline(std::cin, input);
 		if (input.compare("ADD") == 0)
-			AmazingPhoneBook.add();
+			AmazingPhoneBook.add_entry();
 		else if (input.compare("SEARCH") == 0)
-			AmazingPhoneBook.search();
+			AmazingPhoneBook.search_entry();
 		else
 			std::cerr << input << " : Invalid input" << std::endl;
 	}
 	while (input.compare("EXIT") != 0 );
+	return (0);
 }
