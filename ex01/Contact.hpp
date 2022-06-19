@@ -26,4 +26,7 @@ class Contact
 		std::string	darkest_secret;
 };
 
+typedef bool	(Contact::* contact_setters)(std::string);
+typedef std::string(Contact::* contact_getters)(void);
+
 #endif
