@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 18:47:52 by alkane            #+#    #+#             */
-/*   Updated: 2022/06/19 18:42:05 by alkane           ###   ########.fr       */
+/*   Updated: 2022/06/20 16:01:19 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,8 @@ void	PhoneBook::add_entry(Contact& c)
 		&Contact::get_phone_number,
 		&Contact::get_darkest_secret
 	};
-	size_t	amt = 5;
 
-	for (size_t i = 0; i < amt; i++)
+	for (size_t i = 0; i < 5; i++)
 		(this->contacts[insert_pos].*setters[i])((c.*getters[i])());
 	this->current_index++;
 	std::cout << "Contact added at position:" << insert_pos << std::endl;
@@ -104,5 +103,34 @@ void	PhoneBook::search_entry(void)
 	}
 }
 
+bool	PhoneBook::index_from_user_input(size_t *index, size_t max)
+{
+	std::string input;
+	int			index_input = -1;
+	int			attempts = 0;
+	
+	while (attempts < 3)
+	{
+		std::cout << "Please enter contact by [index] to see more info: " << std::endl;
+		if (!(std::getline(std::cin, input))
+			input.clear();
+		attempts++;
+		try
+			index_input = std::stoi(input, nullptr);
+		catch (std::invalid_argument)
+		{
+			std::cerr << "Input invalid!" << std::endl;
+			continue;
+		}
+		if (index_input > 0 && index_input <= (int)max))
+		{
+			*index = (size_t)index_input;
+			return (true);
+		}
+		std::cerr << "Index must be between 0 and " << max << std::endl;
+	}
+	std::cerr << "Too many failed attempts" << std::endl;
+	return (false);
+}
 
 
