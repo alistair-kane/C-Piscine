@@ -1,13 +1,13 @@
-NAME	= megaphone
+NAME	= myAwesomePhoneBook
 CC		= g++
-CFLAGS	= -Wall -Werror -Wextra -std=c++98
-
+CPPFLAGS = -Wall -Werror -Wextra
+CXXFLAGS = -std=c++98
 SRCS	= Contact.cpp main.cpp PhoneBook.cpp
 
 all: $(NAME)
 
 $(NAME):
-	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
+	$(CC) $(CXXFLAGS) $(CPPFLAGS) $(SRCS) -o $(NAME)
 
 fclean:
 	rm -f $(NAME)

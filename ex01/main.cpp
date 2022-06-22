@@ -6,11 +6,10 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:33:20 by alkane            #+#    #+#             */
-/*   Updated: 2022/06/19 17:47:57 by alkane           ###   ########.fr       */
+/*   Updated: 2022/06/21 18:04:36 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Contact.hpp"
 #include "PhoneBook.hpp"
 
 int main(void)
@@ -23,7 +22,7 @@ int main(void)
 		std::cout << 
 			"Please enter one of the following commands: [ADD] [SEARCH] [EXIT]"
 				<< std::endl;
-		if (!(std::getline(std::cin, input))
+		if (!std::getline(std::cin, input))
 		{
 			std::cerr << "EOF passed" << std::endl;
 			break ;
@@ -32,9 +31,9 @@ int main(void)
 			AmazingPhoneBook.add_entry();
 		else if (input.compare("SEARCH") == 0)
 			AmazingPhoneBook.search_entry();
-		else
+		else if (input.compare("EXIT") != 0)
 			std::cerr << input << " : Invalid input" << std::endl;
 	}
-	while (input.compare("EXIT") != 0 );
+	while (input.compare("EXIT") != 0);
 	return (0);
 }
