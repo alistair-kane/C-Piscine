@@ -2,6 +2,8 @@
 #define	CONTACT
 
 #include <string>
+#include <locale>
+#include <iostream>
 
 class Contact 
 {

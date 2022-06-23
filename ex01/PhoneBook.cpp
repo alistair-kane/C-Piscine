@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 18:47:52 by alkane            #+#    #+#             */
-/*   Updated: 2022/06/23 01:43:20 by alistair         ###   ########.fr       */
+/*   Updated: 2022/06/23 03:32:10 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ std::string to_string(const T & value)
     return (oss.str());
 }
 
-// constructor of Phonebook class, passing 0 in initialization list to current_index
-PhoneBook::PhoneBook(void) : pos(-1){}
+// constructor of Phonebook class, passing -1 in initialization list to current_index
+PhoneBook::PhoneBook(void) : pos(-1), maxed(false){}
 
 static int stoi(std::string& s)
 {
@@ -118,7 +118,11 @@ void	PhoneBook::add_entry(Contact& c)
 	for (int i = 0; i < 5; i++)
 		(this->contacts[insert_pos].*setters[i])((c.*getters[i])());
 	this->pos++;
-	this->pos = this->pos == this->max_contacts ? 0: this->pos;
+	if (this->pos == this->max_contacts)
+	{
+		this->pos = 0;
+		this->maxed = true;
+	}
 	std::cout << "Contact added at position: " << insert_pos << std::endl;
 }
 
@@ -138,7 +142,6 @@ void	PhoneBook::search_entry(void)
 			truncate_print_string(this->contacts[i].get_last_name(), 1);
 			truncate_print_string(this->contacts[i].get_nickname(), 0);
 		}
-		if (this->pos == 0 )
 		if (index_from_user_input(&index, this->pos) == true)
 			print_full_details(index);
 	}
@@ -177,7 +180,8 @@ bool	PhoneBook::index_from_user_input(int *index, int limit)
 	int			index_input = -1;
 	int			attempts = 0;
 	
-	limit = limit == 0 ? 8 : limit;
+	if (limit == 0 || (limit == 1 && this->maxed == true))
+		limit = this->max_contacts;
 	while (attempts < 3)
 	{
 		std::cout << "Please enter a contact by index # to see more info: " << std::endl;

@@ -10,6 +10,7 @@
 class PhoneBook 
 {
 	public:
+
 		PhoneBook(void);
 
 		void	add_entry(void);
@@ -20,7 +21,8 @@ class PhoneBook
 		static const int	max_contacts = 8;
 		Contact				contacts[max_contacts];
 		int					pos;
-	
+		bool				maxed;
+
 		void				add_entry(Contact& c);
 		void				print_header(void);
 		void				print_full_details(int index);
