@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 14:53:04 by alkane            #+#    #+#             */
-/*   Updated: 2022/06/23 18:27:29 by alkane           ###   ########.fr       */
+/*   Updated: 2022/06/23 20:01:10 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,33 @@ void	Account::displayAccountsInfos(void)
         << std::endl;
 }
 
-
 void    Account::displayStatus(void) const
 {
     std::cout
-        << 
+        << "index:"
+        << _accountIndex
+        << ";amount:"
+        << _amount
+        << ";deposits:"
+        << _nbDeposits
+        << ";withdrawals:"
+        << _nbWithdrawals
+        << std::endl;
 }
 
+void	Account::makeDeposit(int deposit)
+{
+    _amount += deposit;
+    _nbDeposits += 1;
+}
+
+bool	Account::makeWithdrawal(int withdrawal)
+{
+    if (_amount - withdrawal > 0)
+    {
+        _amount -= withdrawal;
+        _nbWithdrawals += 1;
+        return (true);
+    }
+    return (false);
+}
