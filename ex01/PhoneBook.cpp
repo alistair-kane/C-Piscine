@@ -3,17 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 18:47:52 by alkane            #+#    #+#             */
-/*   Updated: 2022/06/21 19:19:49 by alkane           ###   ########.fr       */
+/*   Updated: 2022/06/23 01:43:20 by alistair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 
+
+#include <cstdio>
+// template function designed to accept int/long/size_t values and return their string equivalent
+template<typename T>
+std::string to_string(const T & value) 
+{
+    std::ostringstream oss;
+
+    oss << value;
+    return (oss.str());
+}
+
 // constructor of Phonebook class, passing 0 in initialization list to current_index
-PhoneBook::PhoneBook(void) : current_index(0){}
+PhoneBook::PhoneBook(void) : pos(-1){}
 
 static int stoi(std::string& s)
 {
@@ -21,6 +33,20 @@ static int stoi(std::string& s)
 
     std::istringstream(s) >> i;
     return (i);
+}
+
+static void	truncate_print_string(std::string input, int divider)
+{
+	if (input.length() > 9)
+	{
+		input.resize(9);
+		input.push_back('.');
+	}
+	std::cout << std::right << std::setw(10) << input;
+	if (divider)
+		std::cout << "|";
+	else
+		std::cout << std::endl;
 }
 
 void	PhoneBook::add_entry(void)
@@ -71,7 +97,7 @@ void	PhoneBook::add_entry(void)
 
 void	PhoneBook::add_entry(Contact& c)
 {
-	size_t	insert_pos = this->current_index % PhoneBook::max_contacts;
+	int	insert_pos; 
 	contact_setters	setters[] = {
 		&Contact::set_first_name,
 		&Contact::set_last_name,
@@ -87,24 +113,33 @@ void	PhoneBook::add_entry(Contact& c)
 		&Contact::get_darkest_secret
 	};
 
-	for (size_t i = 0; i < 5; i++)
+	this->pos = this->pos == -1 ? 0 : this->pos;
+	insert_pos = this->pos % this->max_contacts;
+	for (int i = 0; i < 5; i++)
 		(this->contacts[insert_pos].*setters[i])((c.*getters[i])());
-	this->current_index++;
+	this->pos++;
+	this->pos = this->pos == this->max_contacts ? 0: this->pos;
 	std::cout << "Contact added at position: " << insert_pos << std::endl;
 }
 
 void	PhoneBook::search_entry(void)
 {
-	size_t	index;
+	int	index;
 	
-	if (current_index == 0)
+	if (this->pos == -1)
 		std::cout << "Phonebook is currently empty!" << std::endl;
 	else
 	{
 		print_header();
-		for (size_t i = 0; i < this->max_contacts; i++)
-			print_short_details(i);
-		if (index_from_user_input(&index, this->current_index) == true)
+		for (int i = 0; i < this->max_contacts; i++)
+		{
+			truncate_print_string(to_string(i), 1);
+			truncate_print_string(this->contacts[i].get_first_name(), 1);
+			truncate_print_string(this->contacts[i].get_last_name(), 1);
+			truncate_print_string(this->contacts[i].get_nickname(), 0);
+		}
+		if (this->pos == 0 )
+		if (index_from_user_input(&index, this->pos) == true)
 			print_full_details(index);
 	}
 }
@@ -127,43 +162,7 @@ void	PhoneBook::print_header(void)
 	std::cout << std::endl;
 }
 
-static void	truncate_print_string(std::string input, int divider)
-{
-	if (input.length() > 9)
-	{
-		input.resize(9);
-		input.push_back('.');
-	}
-	std::cout << std::right << std::setw(10) << input;
-	if (divider)
-		std::cout << "|";
-	else
-		std::cout << std::endl;
-}
-
-void	PhoneBook::print_short_details(size_t index)
-{
-	std::cout << std::right << index << std::setw(10) << "|";
-	// if (this->contacts[index].get_first_name().length() > 9)
-		// std::cout << std::right << std::setw(9) << this->contacts[index].get_first_name() << "." << "|";
-	// else
-		// std::cout << std::right << std::setw(10) << this->contacts[index].get_first_name() << "|";
-	truncate_print_string(this->contacts[index].get_first_name(), 1);
-	truncate_print_string(this->contacts[index].get_last_name(), 1);
-	truncate_print_string(this->contacts[index].get_nickname(), 0);	
-	// if (this->contacts[index].get_last_name().length() > 9)
-		// std::cout << std::right << std::setw(9) << this->contacts[index].get_last_name() << "." << "|";
-	// else
-		// std::cout << std::right << std::setw(10) << this->contacts[index].get_last_name() << "|";
-
-	// if (this->contacts[index].get_nickname().length() > 9)
-	// 	std::cout << std::right << this->contacts[index].get_nickname() << "." << std::setw(9);
-	// else
-	// 	std::cout << std::right << this->contacts[index].get_nickname() << std::setw(10);
-	// std::cout << std::endl;
-}
-
-void	PhoneBook::print_full_details(size_t index)
+void	PhoneBook::print_full_details(int index)
 {
 	std::cout << "First Name: " << this->contacts[index].get_first_name() << std::endl;
 	std::cout << "Last Name: " << this->contacts[index].get_last_name() << std::endl;
@@ -172,12 +171,13 @@ void	PhoneBook::print_full_details(size_t index)
 	std::cout << "Darkest Secret: " << this->contacts[index].get_darkest_secret() << std::endl;
 }
 
-bool	PhoneBook::index_from_user_input(size_t *index, size_t max)
+bool	PhoneBook::index_from_user_input(int *index, int limit)
 {
 	std::string input;
 	int			index_input = -1;
 	int			attempts = 0;
 	
+	limit = limit == 0 ? 8 : limit;
 	while (attempts < 3)
 	{
 		std::cout << "Please enter a contact by index # to see more info: " << std::endl;
@@ -193,12 +193,12 @@ bool	PhoneBook::index_from_user_input(size_t *index, size_t max)
 			std::cerr << "Input invalid!" << std::endl;
 			continue;
 		}
-		if (index_input >= 0 && index_input < (int)max)
+		if (index_input >= 0 && index_input < limit)
 		{
-			*index = (size_t)index_input;
+			*index = index_input;
 			return (true);
 		}
-		std::cerr << "Index must be between 0 and " << max - 1 << std::endl;
+		std::cerr << "Index must be between 0 and " << limit - 1 << std::endl;
 	}
 	std::cerr << "Too many failed attempts" << std::endl;
 	return (false);

@@ -1,4 +1,4 @@
-NAME	= myAwesomePhoneBook
+NAME	= yellow_pages
 CC		= g++
 CPPFLAGS = -Wall -Werror -Wextra
 CXXFLAGS = -std=c++98
