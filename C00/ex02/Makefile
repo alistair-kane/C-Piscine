@@ -1,8 +1,8 @@
-NAME	= the_yellow_pages
+NAME	= log_generator
 CC		= g++
 CPPFLAGS = -Wall -Werror -Wextra
 CXXFLAGS = -std=c++98
-SRCS	= Contact.cpp main.cpp PhoneBook.cpp
+SRCS	= Account.cpp tests.cpp 
 
 all: $(NAME)
 
