@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 18:47:52 by alkane            #+#    #+#             */
-/*   Updated: 2022/06/23 03:32:10 by alkane           ###   ########.fr       */
+/*   Updated: 2022/06/23 15:45:28 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void	PhoneBook::search_entry(void)
 			truncate_print_string(this->contacts[i].get_last_name(), 1);
 			truncate_print_string(this->contacts[i].get_nickname(), 0);
 		}
-		if (index_from_user_input(&index, this->pos) == true)
+		if (index_from_user_input(index, this->pos) == true)
 			print_full_details(index);
 	}
 }
@@ -174,7 +174,7 @@ void	PhoneBook::print_full_details(int index)
 	std::cout << "Darkest Secret: " << this->contacts[index].get_darkest_secret() << std::endl;
 }
 
-bool	PhoneBook::index_from_user_input(int *index, int limit)
+bool	PhoneBook::index_from_user_input(int &index, int limit)
 {
 	std::string input;
 	int			index_input = -1;
@@ -199,7 +199,7 @@ bool	PhoneBook::index_from_user_input(int *index, int limit)
 		}
 		if (index_input >= 0 && index_input < limit)
 		{
-			*index = index_input;
+			index = index_input;
 			return (true);
 		}
 		std::cerr << "Index must be between 0 and " << limit - 1 << std::endl;
