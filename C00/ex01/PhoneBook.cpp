@@ -6,14 +6,12 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 18:47:52 by alkane            #+#    #+#             */
-/*   Updated: 2022/06/23 15:45:28 by alkane           ###   ########.fr       */
+/*   Updated: 2022/06/24 17:35:17 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 
-
-#include <cstdio>
 // template function designed to accept int/long/size_t values and return their string equivalent
 template<typename T>
 std::string to_string(const T & value) 
