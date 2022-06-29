@@ -9,16 +9,15 @@ Fixed::Fixed()
 
 Fixed::Fixed(const Fixed &copy)
 {
-	_value = copy.getValue();
+	_value = copy.getRawBits();
 	std::cout << "\e[0;33mCopy Constructor called of Fixed\e[0m" << std::endl;
 }
 
-Fixed::Fixed(int value)
+Fixed::Fixed(void)
 {
-	_value = value;
+	_value = 0;
 	std::cout << "\e[0;33mFields Constructor called of Fixed\e[0m" << std::endl;
 }
-
 
 // Destructor
 Fixed::~Fixed()
@@ -26,13 +25,11 @@ Fixed::~Fixed()
 	std::cout << "\e[0;31mDestructor called of Fixed\e[0m" << std::endl;
 }
 
-
 // Operators
-Fixed & Fixed::operator=(const Fixed &assign)
+Fixed & Fixed::operator=(const Fixed &copy)
 {
-	_value = assign.getValue();
-	return *this;
+	_value = copy.getRawBits();
+	return (*this);
 }
-
 
 // Getters / Setters

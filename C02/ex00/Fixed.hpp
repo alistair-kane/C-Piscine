@@ -15,7 +15,7 @@ class Fixed
 		~Fixed();
 		
 		// Operators
-		Fixed & operator=(const Fixed &assign);
+		Fixed & operator=(const Fixed &copy);
 		
 		// Getters / Setters
 		int		getRawBits(void) const;
