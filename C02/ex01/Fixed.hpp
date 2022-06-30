@@ -19,8 +19,8 @@ class Fixed
 		~Fixed(void);
 		
 		// Operators
-		Fixed 			& operator=(const Fixed &copy);
-		friend std::ostream	& operator<<(std::ostream &os, const Fixed &F);
+		Fixed	& operator=(const Fixed &copy);
+
 		// Getters / Setters
 		int		getRawBits(void) const;
 		void	setRawBits(int const raw);
@@ -33,6 +33,9 @@ class Fixed
 		int 				_value;
 		static const int	_fractional_bits = 8;
 
+
 };
+
+std::ostream	& operator<<(std::ostream &os, const Fixed &F);
 
 #endif

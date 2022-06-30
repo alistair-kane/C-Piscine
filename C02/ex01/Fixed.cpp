@@ -39,12 +39,6 @@ Fixed & Fixed::operator=(const Fixed &copy)
 	return (*this);
 }
 
-std::ostream & operator<<(std::ostream & os, const Fixed &F)
-{
-	os << (F._value / (float)(1 << F._fractional_bits));
-	return (os);
-}
-
 // Getters / Setters
 int	Fixed::getRawBits(void) const
 {
@@ -66,4 +60,10 @@ float	Fixed::toFloat(void) const
 int		Fixed::toInt(void) const
 {
 	return (_value / (1 << _fractional_bits));
+}
+
+std::ostream & operator<<(std::ostream & os, const Fixed &F)
+{
+	os << F.toFloat();
+	return (os);
 }
