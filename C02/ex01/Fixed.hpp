@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <cmath>
 
 class Fixed
 {
@@ -18,11 +19,15 @@ class Fixed
 		~Fixed(void);
 		
 		// Operators
-		Fixed & operator=(const Fixed &copy);
-		
+		Fixed 			& operator=(const Fixed &copy);
+		friend std::ostream	& operator<<(std::ostream &os, const Fixed &F);
 		// Getters / Setters
 		int		getRawBits(void) const;
 		void	setRawBits(int const raw);
+
+		// member functions
+		float	toFloat(void) const;
+		int		toInt(void) const;
 
 	private:
 		int 				_value;
