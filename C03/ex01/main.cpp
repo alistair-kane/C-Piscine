@@ -6,18 +6,18 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 18:25:53 by alkane            #+#    #+#             */
-/*   Updated: 2022/07/01 21:52:11 by alkane           ###   ########.fr       */
+/*   Updated: 2022/07/02 14:04:30 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 int main(void)
 {
-    ClapTrap john("John");
-    ClapTrap jimmy("Jimmy");
+    ScavTrap john("John");
+    ScavTrap jimmy("Jimmy");
     
-    john.attack("Jimmy");
+    john.attack("Jimmy"); 
     jimmy.takeDamage(9);
     
     jimmy.attack("john");
