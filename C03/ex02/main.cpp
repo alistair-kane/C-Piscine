@@ -6,16 +6,16 @@
 /*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 18:25:53 by alkane            #+#    #+#             */
-/*   Updated: 2022/07/02 15:47:37 by alistair         ###   ########.fr       */
+/*   Updated: 2022/07/02 23:38:13 by alistair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 int main(void)
 {
-    ScavTrap john("John");
-    ScavTrap jimmy("Jimmy");
+    FragTrap john("John");
+    FragTrap jimmy("Jimmy");
     
     john.attack("Jimmy"); 
     jimmy.takeDamage(9);
@@ -32,8 +32,8 @@ int main(void)
     std::cout << "HP left for " << john.get_Name() << " : " << john.get_hit_points() << std::endl;
     std::cout << "HP left for " << jimmy.get_Name() << " : " << jimmy.get_hit_points() << std::endl;
     
-    jimmy.guardGate();
-    john.guardGate();
+    jimmy.highFivesGuys();
+    john.highFivesGuys();
     
     return (0);
 }

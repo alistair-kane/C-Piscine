@@ -2,7 +2,7 @@ NAME	= a.out
 CC		= g++
 CFLAGS	= -Wall -Werror -Wextra -std=c++98
 
-SRCS	= ScavTrap.cpp ClapTrap.cpp main.cpp
+SRCS	= FragTrap.cpp ClapTrap.cpp main.cpp
 
 all: $(NAME)
 
