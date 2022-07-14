@@ -18,6 +18,8 @@ class Cat : public Animal
 		// Operators
 		Cat & operator=(const Cat &assign);
 		
+		void	makeSound() const;
+
 	private:
 		
 };

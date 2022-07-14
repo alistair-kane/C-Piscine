@@ -12,14 +12,15 @@ class Animal
 		Animal(const Animal &copy);
 		
 		// Destructor
-		~Animal();
+		virtual ~Animal();
 		
 		// Operators
 		Animal & operator=(const Animal &assign);
 		
 		// Getter
-		std::string	getType() const;
-		void		makeSound() const;
+		std::string		getType() const;
+
+		virtual void	makeSound() const;
 
 	protected:
 		std::string	type;
