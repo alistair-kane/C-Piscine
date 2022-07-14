@@ -10,6 +10,7 @@ class ClapTrap
 		// Constructors
 		ClapTrap();
 		ClapTrap(ClapTrap const &copy);
+		ClapTrap & operator=(ClapTrap const & input);
 		ClapTrap(std::string _Name);
 
 		// Destructor

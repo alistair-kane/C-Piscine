@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 16:40:15 by alkane            #+#    #+#             */
-/*   Updated: 2022/06/25 00:30:36 by alkane           ###   ########.fr       */
+/*   Updated: 2022/07/14 15:06:22 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <string>
 #include <iostream>
 
-static std::string    replace_all(std::string &line, const std::string &search, const std::string &replace) 
+static std::string	replace_all(std::string &line, const std::string &search, const std::string &replace) 
 {
 	for (size_t pos = 0; ; pos += replace.length()) 
 	{

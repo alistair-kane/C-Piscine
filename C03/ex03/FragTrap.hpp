@@ -11,7 +11,7 @@ class FragTrap: virtual public ClapTrap
 		// Constructors
 		FragTrap(FragTrap const &copy);
 		FragTrap(std::string _Name);
-
+		FragTrap & operator=(FragTrap const & input);
 		// Destructor
 		~FragTrap();
 

@@ -28,6 +28,15 @@ ClapTrap::ClapTrap(std::string _Name)
 	std::cout << "\e[0;33mFields Constructor called of ClapTrap\e[0m" << std::endl;
 }
 
+ClapTrap & ClapTrap::operator=(ClapTrap const & input)
+{
+	this->_Name = input._Name;
+	this->_hit_points = input._hit_points;
+	this->_energy_points = input._energy_points;
+	this->_attack_damage = input._attack_damage;
+	return (*this);
+}
+
 // Destructor
 ClapTrap::~ClapTrap()
 {

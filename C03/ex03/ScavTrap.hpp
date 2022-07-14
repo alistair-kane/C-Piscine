@@ -11,6 +11,7 @@ class ScavTrap: virtual public ClapTrap
 		// Constructors
 		ScavTrap(std::string _Name);
 		ScavTrap(ScavTrap const &copy);
+		ScavTrap & operator=(ScavTrap const & input);
 
 		// Destructor
 		~ScavTrap();

@@ -17,6 +17,15 @@ FragTrap::FragTrap(std::string _Name) : ClapTrap(_Name)
 	std::cout << "\e[0;33mFields Constructor called of FragTrap\e[0m" << std::endl;
 }
 
+FragTrap & FragTrap::operator=(FragTrap const & input)
+{
+	this->_Name = input._Name;
+	this->_hit_points = input._hit_points;
+	this->_energy_points = input._energy_points;
+	this->_attack_damage = input._attack_damage;
+	return (*this);
+}
+
 // Destructor
 FragTrap::~FragTrap()
 {

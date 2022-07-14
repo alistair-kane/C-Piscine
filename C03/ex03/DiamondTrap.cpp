@@ -17,6 +17,15 @@ DiamondTrap::DiamondTrap(std::string _Name) : ClapTrap(_Name + "_clap_name"), Sc
 	std::cout << "\e[0;33mFields Constructor called of DiamondTrap\e[0m" << std::endl;
 }
 
+DiamondTrap & DiamondTrap::operator=(DiamondTrap const & input)
+{
+	this->_Name = input._Name;
+	this->_hit_points = input._hit_points;
+	this->_energy_points = input._energy_points;
+	this->_attack_damage = input._attack_damage;
+	return (*this);
+}
+
 // Destructor
 DiamondTrap::~DiamondTrap()
 {
