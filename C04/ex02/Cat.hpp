@@ -3,10 +3,10 @@
 
 # include <iostream>
 # include <string>
-# include "Animal.hpp"
+# include "A_Animal.hpp"
 # include "Brain.hpp"
 
-class Cat : public Animal
+class Cat : public A_Animal
 {
 	public:
 		// Constructors

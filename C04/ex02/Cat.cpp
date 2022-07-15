@@ -1,15 +1,15 @@
-#include "Animal.hpp"
+#include "A_Animal.hpp"
 #include "Cat.hpp"
 
 // Constructors
-Cat::Cat() : Animal()
+Cat::Cat() : A_Animal()
 {
 	this->type = "Cat";
 	this->brain = new Brain();
 	std::cout << "\e[0;33mDefault Constructor called of Cat\e[0m" << std::endl;
 }
 
-Cat::Cat(const Cat &copy) : Animal()
+Cat::Cat(const Cat &copy) : A_Animal()
 {
 	*this = copy;
 	std::cout << "\e[0;33mCopy Constructor called of Cat\e[0m" << std::endl;

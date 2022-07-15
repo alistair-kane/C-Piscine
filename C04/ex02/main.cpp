@@ -6,41 +6,41 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 16:28:46 by alkane            #+#    #+#             */
-/*   Updated: 2022/07/15 16:18:14 by alkane           ###   ########.fr       */
+/*   Updated: 2022/07/15 16:54:43 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "A_Animal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
 
 int main()
 {
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
+	const A_Animal* j = new Dog();
+	const A_Animal* i = new Cat();
 
 	delete j;
 	delete i;
 
-	std::cout << std::endl << "------------------------" << std::endl << std::endl;
+	std::cout << std::endl << "------------" << std::endl << std::endl;
 
 	int N = 4;
-	Animal* animals[N];
+	A_Animal* A_Animals[N];
 
 	for (int i = 0; i < N; i++)
 	{
 		if (i % 2 == 0)
-			animals[i] = new Dog();
+			A_Animals[i] = new Dog();
 		else
-			animals[i] = new Cat();
+			A_Animals[i] = new Cat();
 	}
 
 	for (int i = 0; i < N; i++)
-		std::cout << animals[i]->getType() << " " << std::endl;
+		std::cout << A_Animals[i]->getType() << " " << std::endl;
 	for (int i = 0; i < N; i++)
-		delete animals[i];
+		delete A_Animals[i];
 
-	std::cout << std::endl << "------------------------" << std::endl << std::endl;
+	std::cout << std::endl << "------------" << std::endl << std::endl;
 
 	Dog old_test_dog;
 	Dog new_test_dog;
@@ -52,6 +52,8 @@ int main()
 	std::cout << "Idea at index 0: " << old_test_dog.getIdeas(0) << std::endl;
 	std::cout << "Idea at index 0: " << new_test_dog.getIdeas(0) << std::endl;
 
+	// Abstract class test
+	// A_Animal Fred;
 
 	return (0);
 }
