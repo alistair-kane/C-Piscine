@@ -71,6 +71,30 @@ void Bureaucrat::decrementGrade()
 		throw GradeTooLowException();
 }
 
+void Bureaucrat::signForm(Form &F)
+{
+	if (F.getSigned() == false)
+	{
+		if (_grade <= F.getSign_grade())
+		{
+			F.beSigned(*this);
+			std::cout << _name << " signed " << F.getName() << std::endl;
+		}
+		else
+			std::cout << _name << " couldn't sign " << F.getName() << " because grade too low" << std::endl;
+	}
+	else
+		std::cout << _name << " couldn't sign " << F.getName() << " because its already signed" << std::endl;
+}
+
+void Bureaucrat::executeForm(Form const & form)
+{
+	if (form.execute(*this) == true)
+		std::cout << getName() << " executed " << form.getName() << std::endl;
+	else
+		std::cout << getName() << " couldn't execute " << form.getName() << std::endl;
+}
+
 // Exceptions
 const char * Bureaucrat::GradeTooHighException::what() const throw()
 {
