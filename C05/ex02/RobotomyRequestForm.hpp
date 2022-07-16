@@ -3,8 +3,6 @@
 
 # include <iostream>
 # include <string>
-# include <stdlib.h>
-# include <ctime>
 # include "Form.hpp"
 class RobotomyRequestForm : public Form
 {

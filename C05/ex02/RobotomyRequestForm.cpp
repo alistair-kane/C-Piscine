@@ -30,9 +30,7 @@ bool	RobotomyRequestForm::execute(Bureaucrat const & executor) const
 		if (executor.getGrade() <= getExecution_grade())
 		{
 			std::cout << "** Drilling noises ** ";
-			srand (time(NULL));
-			int flip = rand() % 2;
-			if (flip == 1)
+			if (rand() % 2 == 1)
 				std::cout << getTarget() << " has been robotomized successfully" << std::endl;
 			else
 				std::cout << "robotomization failed" << std::endl;
