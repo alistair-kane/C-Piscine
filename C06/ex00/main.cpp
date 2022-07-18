@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:38:48 by alkane            #+#    #+#             */
-/*   Updated: 2022/07/18 21:06:31 by alkane           ###   ########.fr       */
+/*   Updated: 2022/07/18 23:34:10 by alistair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ static void	print_double(char c, int i, float f, double d, int type, const char 
 	else if (type == TYPE_INT)
 		casted = static_cast<double>(i);
 	else if (type == TYPE_FLOAT)
-		casted = static_cast<float>(f);
+		casted = static_cast<double>(f);
 	else if (type == TYPE_DOUBLE)
 		casted = d;
 	if (error)
@@ -260,18 +260,13 @@ int main(int argc, char **argv)
 		std::cout << "Please provide 1 argument" << std::endl;
 		return 1;
 	}
-
-	// type of cast?
 	std::string input = argv[1];
-	
-	int type = get_type(input);
-	
 	const char	*error;
-
 	char		ph_char = 0;
 	int			ph_int = 0;
 	float		ph_float = 0;
 	double		ph_double = 0;
+	int			type = get_type(input);
 
 	switch(type)
 	{
@@ -290,7 +285,6 @@ int main(int argc, char **argv)
 		default:
 			std::cout << "Invalid" << std::endl;
 	}
-
 	print_char(ph_char, ph_int, ph_float, ph_double, type, error);
 	print_int(ph_char, ph_int, ph_float, ph_double, type, error);
 	print_float(ph_char, ph_int, ph_float, ph_double, type, error);
