@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   bsp.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 21:05:39 by alistair          #+#    #+#             */
-/*   Updated: 2022/07/01 01:26:47 by alistair         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:34:57 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Point.hpp"
+
+// Source: https://blackpawn.com/texts/pointinpoly/
 
 bool bsp(Point const a, Point const b, Point const c, Point const point)
 {
