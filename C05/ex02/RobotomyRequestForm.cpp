@@ -30,7 +30,7 @@ bool	RobotomyRequestForm::execute(Bureaucrat const & executor) const
 		if (executor.getGrade() <= getExecution_grade())
 		{
 			std::cout << "** Drilling noises ** ";
-			std::srand (std::time(NULL));
+			std::srand (std::time(0));
 			if (std::rand() % 2 == 1)
 				std::cout << getTarget() << " has been robotomized successfully" << std::endl;
 			else

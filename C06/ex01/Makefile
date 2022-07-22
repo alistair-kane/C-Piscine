@@ -1,6 +1,6 @@
-NAME	= a.out
+NAME	= Serialization
 CC		= g++
-CFLAGS	= -Wall -Werror -Wextra #-std=c++98 
+CFLAGS	= -Wall -Werror -Wextra -std=c++98 
 
 SRCS	= main.cpp
 

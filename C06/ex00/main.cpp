@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:38:48 by alkane            #+#    #+#             */
-/*   Updated: 2022/07/18 23:34:10 by alistair         ###   ########.fr       */
+/*   Updated: 2022/07/22 12:53:10 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScalarConversion.hpp"
+#include <iostream>
+#include <string>
+#include <iomanip>
 
 typedef enum
 {
@@ -121,7 +123,7 @@ static int	get_type(std::string input)
 
 static char	convert_char(std::string input)
 {
-	return input[0];
+	return (input[0]);
 }
 
 static int	convert_int(std::string input, const char **error)
@@ -132,7 +134,7 @@ static int	convert_int(std::string input, const char **error)
 	{
 		value = std::stoi(input);
 	}
-	catch (std::exception &e)
+	catch (std::invalid_argument &e)
 	{
 		*error = e.what();
 	}
@@ -264,23 +266,27 @@ int main(int argc, char **argv)
 	const char	*error;
 	char		ph_char = 0;
 	int			ph_int = 0;
-	float		ph_float = 0;
-	double		ph_double = 0;
+	float		ph_float = 0.0f;
+	double		ph_double = 0.0;
 	int			type = get_type(input);
 
 	switch(type)
 	{
 		case TYPE_CHAR:
 			ph_char = convert_char(input);
+			std::cout << "char" << std::endl;
 			break ;
 		case TYPE_INT:
 			ph_int = convert_int(input, &error);
+			std::cout << "int" << std::endl;
 			break ;
 		case TYPE_FLOAT:
 			ph_float = convert_float(input, &error);
+			std::cout << "float" << std::endl;
 			break ;
 		case TYPE_DOUBLE:
 			ph_double = convert_double(input, &error);
+			std::cout << "double" << std::endl;
 			break ;
 		default:
 			std::cout << "Invalid" << std::endl;
