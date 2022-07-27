@@ -4,13 +4,14 @@
 # include <iostream>
 # include <string>
 # include "Base.hpp"
+
 class A: public Base
 {
-	public:
-		// Destructor
-		virtual ~A();
+	// public:
+	// 	// Destructor
+	// 	~A();
 		
-	private:
+	// private:
 		
 };
 

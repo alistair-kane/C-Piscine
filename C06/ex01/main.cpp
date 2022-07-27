@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:08:32 by alkane            #+#    #+#             */
-/*   Updated: 2022/07/22 19:20:10 by alkane           ###   ########.fr       */
+/*   Updated: 2022/07/27 17:22:55 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <string.h>
 #include <stdint.h>
 
-struct  Data
+struct Data
 {
 	std::string	name;
 	float		price;
@@ -22,12 +22,12 @@ struct  Data
 
 uintptr_t	serialize(Data *ptr)
 {
-    return(reinterpret_cast<uintptr_t>(ptr));
+	return(reinterpret_cast<uintptr_t>(ptr));
 }
 
-Data    *deserialize(uintptr_t raw)
+Data	*deserialize(uintptr_t raw)
 {
-    return(reinterpret_cast<Data *>(raw));
+	return(reinterpret_cast<Data *>(raw));
 }
 
 int	main(void)

@@ -8,10 +8,10 @@ class Base
 {
 	public:
 		// Destructor
-		virtual ~Base();
-		
+		virtual ~Base() {};
+
 	private:
-		
+
 };
 
 #endif
