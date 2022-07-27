@@ -43,24 +43,25 @@ void	ScavTrap::attack(const std::string& target)
 		std::cout << "ScavTrap has no energy, thus unable to attack"<< std::endl;
 	else
 	{
-	std::cout 
-		<< "ScavTrap "
-		<< get_Name()
-		<< " attacks "
-		<< target
-		<< ", causing "
-		<< get_attack_damage()
-		<< " points of damage!"
-		<< std::endl;
+		std::cout 
+			<< "ScavTrap "
+			<< get_Name()
+			<< " attacks "
+			<< target
+			<< ", causing "
+			<< get_attack_damage()
+			<< " points of damage!"
+			<< std::endl;
+			_energy_points--;
 	}
-	// _energy_points--;
 }
 
 void	ScavTrap::guardGate()
 {
 	if (_hit_points <= 0)
 		std::cout << "ScavTrap is dead, thus unable to guard"<< std::endl;
-	{   
+	else
+	{
 	std::cout 
 		<< "ScavTrap "
 		<< _Name

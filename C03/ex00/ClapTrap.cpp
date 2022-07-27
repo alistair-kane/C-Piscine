@@ -61,9 +61,9 @@ unsigned int	ClapTrap::get_hit_points(void) const
 void	ClapTrap::attack(const std::string& target)
 {
 	if (_hit_points <= 0)
-		std::cout << "ClapTrap is dead, thus unable to attack"<< std::endl;
+		std::cout << "ClapTrap " << get_Name() << " is dead, thus unable to attack"<< std::endl;
 	else if (_energy_points <= 0)
-		std::cout << "ClapTrap has no energy, thus unable to attack"<< std::endl;
+		std::cout << "ClapTrap " << get_Name() << " has no energy, thus unable to attack"<< std::endl;
 	else
 	{
 	std::cout 
@@ -75,33 +75,33 @@ void	ClapTrap::attack(const std::string& target)
 		<< _attack_damage
 		<< " points of damage!"
 		<< std::endl;
+		_energy_points--;
 	}
-	_energy_points--;
 }
 
 void	ClapTrap::takeDamage(unsigned int amount)
 {
 	if (_hit_points <= 0)
-		std::cout << "ClapTrap is already dead, thus cannot endure more pain"<< std::endl;
+		std::cout << "ClapTrap " << get_Name() << " is already dead, thus cannot endure more pain"<< std::endl;
 	else
 	{
-	std::cout 
-		<< "ClapTrap "
-		<< _Name
-		<< " takes "
-		<< amount
-		<< " points of damage!"
-		<< std::endl;
+		std::cout 
+			<< "ClapTrap "
+			<< _Name
+			<< " takes "
+			<< amount
+			<< " points of damage!"
+			<< std::endl;
+		_hit_points -= amount;
 	}
-	_hit_points -= amount;
 }
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
 	if (_hit_points <= 0)
-		std::cout << "ClapTrap is already dead, thus cannot be repaired"<< std::endl;
+		std::cout << "ClapTrap " << get_Name() << " is already dead, thus cannot be repaired" << std::endl;
 	else if (_energy_points <= 0)
-		std::cout << "ClapTrap has no energy, thus unable to be repaired"<< std::endl;
+		std::cout << "ClapTrap " << get_Name() << "has no energy, thus unable to be repaired" << std::endl;
 	else
 	{
 	std::cout 
@@ -111,7 +111,7 @@ void	ClapTrap::beRepaired(unsigned int amount)
 		<< amount
 		<< " points of repair!"
 		<< std::endl;
+		_hit_points += amount;
+		_energy_points--;
 	}
-	_hit_points += amount;
-	_energy_points--;
 }

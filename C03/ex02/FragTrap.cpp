@@ -39,11 +39,12 @@ void	FragTrap::highFivesGuys()
 {
 	if (_hit_points <= 0)
 		std::cout << "FragTrap is dead, thus unable to request high fives"<< std::endl;
-	{   
-	std::cout
-		<< "FragTrap "
-		<< _Name
-		<< " is now requesting positive high fives"
-		<< std::endl;
+	else
+	{
+		std::cout
+			<< "FragTrap "
+			<< _Name
+			<< " is now requesting positive high fives"
+			<< std::endl;
 	}
 }
