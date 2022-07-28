@@ -1,5 +1,5 @@
 NAME	= a.out
-CC		= g++
+CC		= c++
 CFLAGS	= -Wall -Werror -Wextra -std=c++98
 
 SRCS	= Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp main.cpp
