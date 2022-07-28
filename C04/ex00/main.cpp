@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 16:28:46 by alkane            #+#    #+#             */
-/*   Updated: 2022/07/28 13:34:07 by alkane           ###   ########.fr       */
+/*   Updated: 2022/07/28 15:54:46 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int main()
 	const Animal* meta = new Animal();
 	const Animal* i = new Dog();
 	const Animal* j = new Cat();
+
 	Dog Dog;
 
 	std::cout << i->getType() << " " << std::endl;

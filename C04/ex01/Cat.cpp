@@ -11,7 +11,10 @@ Cat::Cat() : Animal()
 
 Cat::Cat(const Cat &copy) : Animal()
 {
-	*this = copy;
+	this->type = copy.type;
+	this->brain = new Brain();
+	for (int i = 0; i < 100; i++)
+		brain->setIdeas(i, copy.getIdeas(i));
 	std::cout << "\e[0;33mCopy Constructor called of Cat\e[0m" << std::endl;
 }
 
@@ -25,6 +28,7 @@ Cat::~Cat()
 // Operators
 Cat & Cat::operator=(const Cat &assign)
 {
+	this->type = assign.type;
 	for (int i = 0; i < 100; i++)
 		brain->setIdeas(i, assign.getIdeas(i));
 	return (*this);

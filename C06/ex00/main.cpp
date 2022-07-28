@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:38:48 by alkane            #+#    #+#             */
-/*   Updated: 2022/07/22 12:53:10 by alkane           ###   ########.fr       */
+/*   Updated: 2022/07/28 14:25:02 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,12 +295,4 @@ int main(int argc, char **argv)
 	print_int(ph_char, ph_int, ph_float, ph_double, type, error);
 	print_float(ph_char, ph_int, ph_float, ph_double, type, error);
 	print_double(ph_char, ph_int, ph_float, ph_double, type, error);
-	
-
-	// find what type it is
-	
-	// if len is greater than 1 and the second char is not an int, invalid
-
-	// go through string, + or - ?
-	// go through string, if no '.','f' and ints then its int
 }

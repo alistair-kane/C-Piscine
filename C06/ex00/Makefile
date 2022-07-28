@@ -1,6 +1,6 @@
 NAME	= a.out
-CC		= g++
-CFLAGS	= -Wall -Werror -Wextra #-std=c++98 
+CC		= c++
+CFLAGS	= -Wall -Werror -Wextra -std=c++98 
 
 SRCS	= main.cpp
 

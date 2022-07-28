@@ -11,10 +11,12 @@ Dog::Dog() : Animal()
 
 Dog::Dog(const Dog &copy) : Animal()
 {
-	(void) copy;
+	this->type = copy.type;
+	this->brain = new Brain();
+	for (int i = 0; i < 100; i++)
+		brain->setIdeas(i, copy.getIdeas(i));
 	std::cout << "\e[0;33mCopy Constructor called of Dog\e[0m" << std::endl;
 }
-
 
 // Destructor
 Dog::~Dog()
@@ -26,6 +28,7 @@ Dog::~Dog()
 // Operators
 Dog & Dog::operator=(const Dog &assign)
 {
+	this->type = assign.type;
 	for (int i = 0; i < 100; i++)
 		brain->setIdeas(i, assign.getIdeas(i));
 	return (*this);
