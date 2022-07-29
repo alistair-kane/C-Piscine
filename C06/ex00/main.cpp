@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:38:48 by alkane            #+#    #+#             */
-/*   Updated: 2022/07/29 13:57:25 by alkane           ###   ########.fr       */
+/*   Updated: 2022/07/29 17:05:14 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static bool	is_float(std::string input)
 		else
 			digit = true;
 	}
-	// if i is last character and its F or f
 	if (i == (input.length() - 1) && commaflag == true && digit == true
 		&& (input[i] == 'f' || input[i] == 'F'))	
 		return true;
@@ -132,7 +131,7 @@ static void	print_char(char c, int type, bool overflow)
 	else if (type == TYPE_SPECIAL || overflow == true)
 		std::cout << "impossible" << std::endl;
 	else if (isprint(c) == false)
-		std::cout << "Not displayable" << std::endl;
+		std::cout << "Non displayable" << std::endl;
 	else
 		std::cout << "'"<< c << "'" << std::endl;
 }
@@ -145,29 +144,46 @@ static void	print_int(int i, int type, bool overflow)
 	else if (type == TYPE_SPECIAL || overflow == true)
 		std::cout << "impossible" << std::endl;
 	else
-		std::cout << i << std::endl; //needs quotes?
+		std::cout << i << std::endl;
 }
 
-static void	print_float(float f, int type, bool overflow)
+static void	print_float(float f, int type, bool overflow, std::string input)
 {
 	std::cout << "float: ";
 	if (type == TYPE_INVALID)
 		std::cout << "Invalid type" << std::endl;
 	else if (overflow == true)
 		std::cout << "impossible" << std::endl;
+	else if (type == TYPE_SPECIAL)
+	{
+		if (input == "-inff" || input == "+inff" || input == "nanf")
+			std::cout << input << std::endl;
+		else
+			std::cout << input << "f" << std::endl;
+	}
 	else
-		std::cout << f << "f" << std::endl; //needs quotes?
+		std::cout << std::setprecision(1) << std::fixed << f << "f" << std::endl;
 }
 
-static void	print_double(double d, int type, bool overflow)
+static void	print_double(double d, int type, bool overflow, std::string input)
 {
 	std::cout << "double: ";
 	if (type == TYPE_INVALID)
 		std::cout << "Invalid type" << std::endl;
 	else if (overflow == true)
 		std::cout << "impossible" << std::endl;
+	else if (type == TYPE_SPECIAL)
+	{
+		if (input == "-inf" || input == "+inf" || input == "nan")
+			std::cout << input << std::endl;
+		else
+		{
+			input.erase(input.end() - 1, input.end());
+			std::cout << input << std::endl;
+		}
+	}
 	else
-		std::cout << d << std::endl; //needs quotes?
+		std::cout << std::setprecision(1) << std::fixed << d << std::endl;
 }
 
 int main(int argc, char **argv)
@@ -178,35 +194,28 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	std::string input = argv[1];
-	std::string	type_string;
 
-	// ph = placeholder
-	char		ph_char = ' ';
-	int			ph_int = 0;
-	float		ph_float = 0.0f;
-	double		ph_double = 0.0;
+	char	ph_char = ' ';
+	int		ph_int = 0;
+	float	ph_float = 0.0f;
+	double	ph_double = 0.0;
 
-	int			type = get_type(input);
+	bool	char_overflow = false;
+	bool	int_overflow = false;
+	bool	float_overflow = false;
+	bool	double_overflow = false;
 
-	long int	holder;
-
-	bool		char_overflow = false;
-	bool		int_overflow = false;
-	bool		float_overflow = false;
-	bool		double_overflow = false;
-
+	int		type = get_type(input);
 	switch(type)
 	{
 		case TYPE_CHAR:
-			std::cout << "char" << std::endl;
 			ph_char = input[0];
 			ph_int = static_cast<int>(ph_char);
 			ph_float = static_cast<float>(ph_char);
 			ph_double = static_cast<double>(ph_char);
 			break ;
 		case TYPE_INT:
-			std::cout << "char" << std::endl;
-		
+			long int	holder;
 			holder = atol(argv[1]);
 			if (input.length() > 11 || holder > std::numeric_limits<int>::max() || holder < std::numeric_limits<int>::min())
 			{
@@ -222,24 +231,30 @@ int main(int argc, char **argv)
 			ph_char = static_cast<double>(ph_int);
 			break ;
 		case TYPE_FLOAT:
-			ph_float = static_cast<float>(std::strtod(argv[1], NULL));
+			double temp_double;
+			temp_double = std::strtod(argv[1], NULL);
+			ph_float = static_cast<float>(temp_double);
 			if (errno == ERANGE)
 			{
 				char_overflow = true;
 				int_overflow = true;
 				float_overflow = true;
 			}
-			holder = static_cast<long>(ph_float);
-			if (type_string.length() > 11 || holder > std::numeric_limits<int>::max() || holder < std::numeric_limits<int>::min())
-				int_overflow = true;
-			if (holder > std::numeric_limits<char>::max() || holder < std::numeric_limits<char>::min())
-				char_overflow = true;
+			else
+			{
+				if (input.length() > 11 || temp_double > std::numeric_limits<int>::max() || temp_double < std::numeric_limits<int>::min())
+					int_overflow = true;
+				if (temp_double > std::numeric_limits<char>::max() || temp_double < std::numeric_limits<char>::min())
+					char_overflow = true;
+				if (temp_double > std::numeric_limits<float>::max() || temp_double < -std::numeric_limits<float>::max())
+					float_overflow = true;
+			}
 			ph_char = static_cast<char>(ph_float);
-			ph_float = static_cast<float>(ph_float);
-			ph_char = static_cast<double>(ph_float);
+			ph_double = static_cast<double>(ph_float);
+			ph_int = static_cast<int>(ph_float);
 			break ;
 		case TYPE_DOUBLE:
-			ph_double = (std::strtod(argv[1], NULL));
+			ph_double = std::strtod(argv[1], NULL);
 			if (errno == ERANGE)
 			{
 				char_overflow = true;
@@ -248,20 +263,23 @@ int main(int argc, char **argv)
 				double_overflow = true;
 				break ;
 			}
-			holder = static_cast<long>(ph_double);
-			if (type_string.length() > 11 || holder > std::numeric_limits<int>::max() || holder < std::numeric_limits<int>::min())
+			if (input.length() > 11 || ph_double > std::numeric_limits<int>::max() || ph_double < std::numeric_limits<int>::min())
 				int_overflow = true;
-			if (holder > std::numeric_limits<char>::max() || holder < std::numeric_limits<char>::min())
+			if (ph_double > std::numeric_limits<char>::max() || ph_double < std::numeric_limits<char>::min())
 				char_overflow = true;
+			if (ph_double > std::numeric_limits<float>::max() || ph_double < -std::numeric_limits<float>::max())
+				float_overflow = true;
 			ph_char = static_cast<char>(ph_double);
-			ph_float = static_cast<double>(ph_double);
+			ph_float = static_cast<float>(ph_double);
 			ph_int = static_cast<int>(ph_double);
+			break ;
+		case TYPE_SPECIAL:
 			break ;
 		default:
 			std::cout << "Invalid" << std::endl;
 	}
 	print_char(ph_char, type, char_overflow);
 	print_int(ph_int, type, int_overflow);
-	print_float(ph_float, type, float_overflow);
-	print_double(ph_float, type, double_overflow);
+	print_float(ph_float, type, float_overflow, input);
+	print_double(ph_double, type, double_overflow, input);
 }
