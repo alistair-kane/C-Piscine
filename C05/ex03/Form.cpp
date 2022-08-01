@@ -44,10 +44,10 @@ Form & Form::operator=(const Form &assign)
 // Stream operators
 std::ostream & operator<<(std::ostream & os, const Form &F)
 {
-	os << "Name:[" << F.getName() 
-		<< "] Signed?:[" << F.getSigned() 
-		<< "] Sign grade:[" << F.getSign_grade()
-		<< "] Execution grade:[" << F.getExecution_grade() << std::endl;
+	os << "Name:[" << F.getName() << "]" << std::endl
+		<< "Signed?:[" << F.getSigned() << "]" << std::endl
+		<< "Sign grade:[" << F.getSign_grade() << "]" << std::endl
+		<< "Execution grade:[" << F.getExecution_grade() << "]" << std::endl;
 	return os;
 }
 
@@ -86,7 +86,7 @@ void	Form::beSigned(Bureaucrat &B)
 		if (B.getGrade() <= _sign_grade)
 			_signed = true;
 		else
-			throw GradeTooLowException();
+			std::cout << B.getName() << " has insufficient grade to sign form [" << B.getGrade() << "]" << std::endl;
 	}
 	else
 		std::cout << "Form is already signed" << std::endl;
@@ -95,9 +95,9 @@ void	Form::beSigned(Bureaucrat &B)
 // Exceptions
 const char * Form::GradeTooHighException::what() const throw()
 {
-	return "Grade too high: 1 is maximum";
+	return "Grade too high";
 }
 const char * Form::GradeTooLowException::what() const throw()
 {
-	return "Grade too low: 150 is minimum";
+	return "Grade too low";
 }

@@ -72,12 +72,12 @@ unsigned int Form::getExecution_grade() const
 // Member functions
 void	Form::beSigned(Bureaucrat &B)
 {
-	if (_signed = false)
+	if (_signed == false)
 	{
 		if (B.getGrade() <= _sign_grade)
 			_signed = true;
 		else
-			throw GradeTooLowException();
+			std::cout << B.getName() << " has insufficient grade to sign form [" << B.getGrade() << "]" << std::endl;
 	}
 	else
 		std::cout << "Form is already signed" << std::endl;

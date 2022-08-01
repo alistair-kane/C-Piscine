@@ -75,7 +75,7 @@ void Bureaucrat::signForm(Form &F)
 {
 	if (F.getSigned() == false)
 	{
-		if (_grade <= F.getSign_grade())
+		if (F.getSign_grade() >= _grade)
 		{
 			F.beSigned(*this);
 			std::cout << _name << " signed " << F.getName() << std::endl;
