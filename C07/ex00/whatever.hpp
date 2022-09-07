@@ -3,7 +3,7 @@
 
 # include <iostream>
 
-template <class T>
+template <typename T>
 void swap(T &a, T &b)
 {
 	T	temp;
@@ -13,13 +13,13 @@ void swap(T &a, T &b)
 	b = temp;
 }
 
-template <class T>
+template <typename T>
 T max(T a, T b)
 {
 	return (a > b ? a : b);
 }
 
-template <class T>
+template <typename T>
 T min(T a, T b)
 {
 	return (a < b ? a : b);

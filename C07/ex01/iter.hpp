@@ -1,9 +1,16 @@
-#ifndef WHATEVER_HPP
-# define WHATEVER_HPP
+#ifndef ITER_HPP
+# define ITER_HPP
 
 # include <iostream>
+# include <string>
 
-template <class T>
-void iter(T *array, int len, )
+template <typename T>
+void iter(T *array, size_t len, void (*func)(T &element))
+{
+	for (size_t i = 0; i < len; i++)
+	{
+		(*func)(array[i]);
+	}
+}
 
 #endif
