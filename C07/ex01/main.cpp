@@ -6,23 +6,29 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:25:19 by alkane            #+#    #+#             */
-/*   Updated: 2022/09/08 14:14:52 by alkane           ###   ########.fr       */
+/*   Updated: 2022/09/10 17:57:33 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "iter.hpp"
 
-int main(void)
+class Awesome
 {
-	int int_array[] = {7, 6, 4, 5, 4};
-	float float_array[] = {4.5, 3.3, 5.3, 600.3, 49.2};
-	std::string string_array[] = {"test", "words", "in", "my", "array"};
-	
-	iter(int_array, 5, print_element);
-	std::cout << std::endl;
-	iter(float_array, 5, print_element);
-	std::cout << std::endl;
-	iter(string_array, 5, print_element);
-	
-	return 0;
+public:
+Awesome( void ) : _n( 42 ) { return; }
+int get( void ) const { return this->_n; }
+private:
+int _n;
+};
+std::ostream & operator<<( std::ostream & o, Awesome const & rhs ) { o << rhs.get(); return o; }
+template< typename T >
+void print( T const & x ) { std::cout << x << std::endl; return; }
+int main() {
+int tab[] = { 0, 1, 2, 3, 4 }; // <--- I never understood why you can't write int[] tab. Wouldn't that make more sense?
+Awesome tab2[5];
+
+iter( tab, 5, print );
+iter( tab2, 5, print );
+
+return 0;
 }
