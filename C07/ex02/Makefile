@@ -2,7 +2,7 @@ NAME	= a.out
 CC		= g++
 CFLAGS	= -Wall -Werror -Wextra -std=c++98 
 
-SRCS	= main.cpp
+SRCS	= main.cpp Fixed.cpp
 
 all: $(NAME)
 

@@ -19,7 +19,7 @@ class Array
 		~Array();
 
 	private:
-		T				*_array;
+		T		*_array;
 		unsigned int	_size;
 };
 

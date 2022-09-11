@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:25:19 by alkane            #+#    #+#             */
-/*   Updated: 2022/09/10 17:45:11 by alkane           ###   ########.fr       */
+/*   Updated: 2022/09/11 18:59:25 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 
 int main(void)
 {
-	// int a = 2;
-	// int b = 3;
-	Awesome a(2), b(4);
+	int a = 2;
+	int b = 3;
+	// Awesome a(2), b(4);
 
 	::swap(a, b);
 	std::cout << "a = " << a << ", b = " << b << std::endl;
