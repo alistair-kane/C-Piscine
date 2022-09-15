@@ -7,7 +7,8 @@
 # include <algorithm>
 # include <ctime>
 # include <cstdlib>
-
+# include <limits.h>
+# include <numeric>
 class Span
 {
 	public:
@@ -25,8 +26,10 @@ class Span
 
 		~Span(void);
 	private:
+		static void			makePositive(int &number);
 		static int			randomNumberGen(void);
 		unsigned int		_n;
+		unsigned int		_idx;
 		std::vector<int>	*_storage;
 };
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:06:46 by alkane            #+#    #+#             */
-/*   Updated: 2022/09/14 17:24:32 by alkane           ###   ########.fr       */
+/*   Updated: 2022/09/15 11:24:27 by alistair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,22 @@
 
 Span::Span(void) : _n(0) {}
 
-Span::Span(const Span &copy)
-{
-	*this = copy;
-	this->_n = copy._n;
-}
-
 Span::Span(unsigned int n) : _n(n) 
 {
 	_storage = new std::vector<int>(n);
 	if (_storage == NULL)
 		throw std::bad_alloc();
+	_idx = 0;
+}
+
+Span::Span(const Span &copy)
+{
+	this->_n = 0;
+	*this = copy;
 }
 
 // Destructor
-Span::~Span()
+Span::~Span(void)
 {
 	delete _storage;
 }
@@ -52,67 +53,48 @@ Span & Span::operator=(const Span &assign)
 
 void	Span::addNumber(int n)
 {
-	unsigned int i = 0;
-	while (_n > 0)
-	{
-		_storage->insert(i, n);
-		_n--;
-		i++;
-	}
-	else
-	{
+	if (_idx == _n)
 		throw std::out_of_range("No more space in Span!");
-	}
+	_storage->at(_idx) = n;
+	_idx++;
+}
+
+unsigned int	Span::shortestSpan(void)
+{
+	if (_n == 0 || _n == 1)
+		throw std::out_of_range("Not enough numbers for shortest Span!");
+	std::vector<int> storage_copy = *_storage;
+	std::adjacent_difference(storage_copy.begin(), storage_copy.end(), storage_copy.begin());
+	for_each(storage_copy.begin(), storage_copy.end(), Span::makePositive);
+	return (static_cast<unsigned int>(*std::min_element(storage_copy.begin(), storage_copy.end())));
+}
+
+unsigned int	Span::longestSpan(void)
+{
+	int	min;
+	int	max;
+	
+	if (_n == 0 || _n == 1)
+		throw std::out_of_range("Not enough numbers for longest Span!");
+	min = *std::min_element(_storage->begin(), _storage->end());
+	max = *std::max_element(_storage->begin(), _storage->end());
+	return (static_cast<unsigned int>(max - min));
 }
 
 void	Span::randomFill()
 {
 	std::srand(time(NULL));
-	if (_n > 0)
-	{
-		std::generate(_storage->begin(), _storage->end(), Span::randomNumberGen);
-		_n = 0;
-	}
-	else
-	{
-		throw std::out_of_range("No more space in Span!");
-	}
-}
-
-unsigned int	Span::shortestSpan(void)
-{
-	int	n = _storage->size();
-	int	diff = INT_MAX;
-
-	if (n == 0 || n == 1)
-		throw std::out_of_range("Not enough numbers for shortest Span!");
-	for (int i = 0; i < n - 1; i++)
-		for (int j = i + 1; j < n; j++)
-			if (abs((*_storage)[i] - (*_storage)[j]) < diff)
-				diff = abs((*_storage)[i] - (*_storage)[j]);
-	return (diff);
-}
-
-unsigned int	Span::longestSpan(void)
-{
-	int n = _storage->size();
-	// std::cout << "N:" << n << std::endl;
-	int	diff = 0;
-
-	if (n == 0 || n == 1)
-		throw std::out_of_range("Not enough numbers for longest Span!");
-	for (int i = 0; i < n - 1; i++)
-		for (int j = i + 1; j < n; j++)
-			if (abs(_storage->at(i) - _storage->at(j)) > diff)
-			{
-				// std::cout << (*_storage)[i] << std::endl;
-				// std::cout << _storage->at(j) << std::endl;
-				diff = abs(_storage->at(i) - _storage->at(j));
-			}
-	return (diff);
+	std::generate(_storage->begin(), _storage->end(), Span::randomNumberGen);
+	_idx = _n;
 }
 
 int	Span::randomNumberGen(void)
 {
-	return (std::rand() % 100);
+	return (std::rand() % INT_MAX);
+}
+
+void	Span::makePositive(int &number)
+{
+	if (number < 0)
+		number *= -1;
 }
