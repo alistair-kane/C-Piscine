@@ -6,6 +6,7 @@
 # include <iostream>
 # include <fstream>
 # include <sstream>
+
 class BitcoinExchange
 {
 	public:
@@ -16,12 +17,11 @@ class BitcoinExchange
 		BitcoinExchange(BitcoinExchange const & copy);
 		// Destructor
 		~BitcoinExchange(void);
-		
 		// Operators
 		BitcoinExchange & operator=(const BitcoinExchange &copy);
 		
-		// Getters / Setters
 		void	printValues(void);
+		double	exchangeMultiple(std::string date);
 
 	private:
 		std::map<std::string, double>	database;

@@ -12,124 +12,113 @@
 
 #include "BitcoinExchange.hpp"
 
-bool in_range(long value, long min, long max)
+void print_ymd(long year, long month, long day)
+{
+	std::cout << year << "-";
+	std::cout << std::setfill('0') << std::setw(2) << month << "-";
+	std::cout << std::setfill('0') << std::setw(2) << day;
+}
+
+bool check_range(long value, long min, long max)
 {
 	if (value >= min && value <= max)
 		return true;
 	return false;
 }
 
-long check_year(std::string input)
+bool date_valid(long year, long month, long day)
 {
-	const char *holder = input.c_str();
-	long year = atol(holder);
-	if (in_range(year, 2009, 2023) == true)
-		return year;
-	return -1;
-}
-
-long check_month(std::string input)
-{
-	const char *holder = input.c_str();
-	long month = atol(holder);
-	if (in_range(month, 1, 12) == true)
-		return month;
-	return -1;
-}
-
-long check_day(std::string input)
-{
-	const char *holder = input.c_str();
-	long day = atol(holder);
-	if (in_range(day, 1, 31) == true)
-		return day;
-	return -1;
-}
-
-bool date_valid(std::string s_year, std::string s_month, std::string s_day)
-{
-	long l_year = check_year(s_year);
-	long l_month = check_month(s_month);
-	long l_day = check_day(s_day);
-
-	if (l_year < 0 || l_month < 0 || l_day < 0)
+	if (!check_range(year, 2009, 9999) || !check_range(month, 1, 12) || !check_range(day, 1, 31))
+	{
+        std::cout << "Error: date out of range => ";
 		return false;
+	}
+    if (year == 2009 && month == 1 && day == 1)
+	{
+        std::cout << "Error: bitcoin doesn't exist yet => ";
+		return false;
+	}
 
-    long entryDate = (l_year * 10000) + (l_month * 100) + l_day;
-    long startDate = 20090102;
-    long endDate = 20220329;
-
-    if (entryDate >= startDate && entryDate <= endDate)
-        return true;
-    else
-        return false;
+    time_t	now = time(0);
+    tm		*nowTm = localtime(&now);
+    int		nowYear = nowTm->tm_year + 1900;
+    int		nowMonth = nowTm->tm_mon + 1;
+    int		nowDay = nowTm->tm_mday;
+    // std::cout << "Today is: " << nowYear << "-" << nowMonth << "-" << nowDay << std::endl;
+    if (year > nowYear)
+	{
+        std::cout << "Error: date from the future => ";
+		return false;
+	}
+    else if (year == nowYear && (month > nowMonth || (month == nowMonth && day > nowDay)))
+	{
+        std::cout << "Error: date from the future => ";
+		return false;
+	}
+	return true;
 }
 
 int main(int argc, char *argv[])
 {
-	BitcoinExchange btc = BitcoinExchange("shorter.csv");
-	// send data.csv into bitcoinexchange constructor for parsing (method) into container
-
+	BitcoinExchange btce = BitcoinExchange("data.csv");
 	// btc.printValues();
-	
-	// check argc
 	if (argc != 2)
 	{
 		std::cerr << "Invalid amount of arguments passed [" << argc << "]" << std::endl; 
 	}
-
-	// check file open, handle exceptions
 	std::ifstream data(argv[1]);
 	if (!data.is_open())
 	{
 		std::exit(EXIT_FAILURE);
 	}
     std::string line;
-	// skip first line
     std::getline(data, line);
-	// getline
-
-    while(std::getline(data, line))
+    while (std::getline(data, line))
 	{
-        std::istringstream	dateStream(line.substr(0, line.find("|")));
-		int year, month, day;
-		char del1;
-		char del2;
+		size_t pos1 = line.find("-");
+		size_t pos2 = line.find("-", pos1 + 2);
+		size_t pos3 = line.find(" | ", pos2 + 2);
 
-		dateStream >> year >> del1 >> month >> del2 >> day;
-
-		std::cout << year << ' ' << month << ' ' << day << std::endl;
-		std::cout << del1 << ' ' << del2 << "$" << std::endl;
+		if (pos1 != 4 || pos2 != 7 || pos3 != 10)
+		{
+			std::cerr << "Error: invalid input" << std::endl;
+			continue;
+		}
+        std::string datestring = line.substr(0, line.find(" |"));
+		long year, month, day;
+		char del1, del2;
 		
-		// std::string year = line.substr(0, line.find("-"));
-        // std::string month = line.substr(line.find("-") + 1, line.find("-") - 2);
-		// try
-		// {
-		// 	line = line.substr(8);
-		// }
-		// catch(std::out_of_range&)
-		// {
-		// 	std::cerr << "Error: bad input" << std::endl;
-		// 	std::exit(EXIT_FAILURE);
-		// }
-		// std::string day = line.substr(0, 2);
-
-		// if (date_valid(year, month, day) == true)
-		// {
-		// 	std::cout << year << "-" << month << "-" << day 
-		// 		<< " => " << std::endl;		
-		// }
-		// else
-		// 	std::cout << "Error: bad input => "
-		// 		<< year << "-" << month << "-" << day << std::endl;
+		std::istringstream	dateStream(datestring);
+		dateStream >> year >> del1 >> month >> del2 >> day;
+		if (date_valid(year, month, day) == true)
+		{
+			double value = std::strtod(line.substr(pos3 + 3).c_str(), NULL);
+			if (value < 0.0)
+			{
+				std::cout << "Error: not a positive number" << std::endl;
+				continue;
+			} 
+			if (value > 1000.0)
+			{
+				std::cout << "Error: too large a number" << std::endl;
+				continue;
+			}
+			print_ymd(year, month, day);
+			std::cout << " => " << value << " = ";
+			std::cout << value * btce.exchangeMultiple(datestring);
+		}
+		else
+			print_ymd(year, month, day);
+		std::cout << std::endl;
 	}
-		// check each line for:
-			// valid date
-				// greater than btc inauguration (year greater than, day greater month)
-				// YYYY-MM-DD dash seperated format > if valid store in date_string
-				// pipe symbol
-				// value > 0 && < MAXINT > if valid store in value_string
-	
-			// valid date and value passed to bitcoinexchange class member lookup member function
 	return 0;
 }
+
+// check each line for:
+	// valid date
+		// greater than btc inauguration (year greater than, day greater month)
+		// YYYY-MM-DD dash seperated format > if valid store in date_string
+		// pipe symbol
+		// value > 0 && < 1000 > if valid store in value_string
+
+	// valid date and value passed to bitcoinexchange class member lookup member function
