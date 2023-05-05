@@ -2,11 +2,11 @@ NAME	= btc
 CC		= c++
 CFLAGS	= -Wall -Werror -Wextra -std=c++98 
 
-SRCS	= main.cpp
+SRCS	= main.cpp BitcoinExchange.cpp
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
 
 fclean:
