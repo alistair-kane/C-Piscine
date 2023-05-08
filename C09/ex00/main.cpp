@@ -61,17 +61,17 @@ bool date_valid(long year, long month, long day)
 int main(int argc, char *argv[])
 {
 	BitcoinExchange btce = BitcoinExchange("data.csv");
-	// btc.printValues();
+
 	if (argc != 2)
 	{
 		std::cerr << "Invalid amount of arguments passed [" << argc << "]" << std::endl; 
+		std::exit(EXIT_FAILURE);
 	}
 	std::ifstream data(argv[1]);
 	if (!data.is_open())
-	{
 		std::exit(EXIT_FAILURE);
-	}
     std::string line;
+
     std::getline(data, line);
     while (std::getline(data, line))
 	{
@@ -105,7 +105,8 @@ int main(int argc, char *argv[])
 			}
 			print_ymd(year, month, day);
 			std::cout << " => " << value << " = ";
-			std::cout << value * btce.exchangeMultiple(datestring);
+			std::cout << std::fixed << std::setprecision(2) 
+				<< value * btce.exchangeMultiple(datestring);
 		}
 		else
 			print_ymd(year, month, day);

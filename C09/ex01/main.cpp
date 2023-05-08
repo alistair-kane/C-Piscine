@@ -5,15 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 14:33:13 by alistair          #+#    #+#             */
-/*   Updated: 2023/05/08 13:00:04 by alistair         ###   ########.fr       */
+/*   Created: 2023/05/08 12:52:13 by alistair          #+#    #+#             */
+/*   Updated: 2023/05/08 12:59:18 by alistair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string>
-
-#include "PmergeMe.hpp"
+#include "RPN.hpp"
 
 int main(int argc, char **argv) 
 {
@@ -22,9 +19,9 @@ int main(int argc, char **argv)
         std::cerr << "Error: you need to provide at least two numbers" << std::endl;
         return (1);
     }
-    try 
-    {    
-        PmergeMe    obj(argv);
+    try
+    {
+        RPN    obj(argv);
     }
     catch (std::exception & err) 
     {

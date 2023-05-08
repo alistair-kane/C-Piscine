@@ -37,18 +37,24 @@ class    PmergeMe {
 		PmergeMe & operator=(PmergeMe const & rhs);
 
 		bool						checkInts(char **input);
+
 		void						sort_list(int start_idx, int end_idx);
 		void						merge_list(int start_idx, int mid_idx, int end_idx);
 		void						insert_list(int start_idx, int mid_idx);
+		std::list<int>				copy_list(int start_idx, int end_idx);
 		std::list<int>::iterator	getIteratorAtIndex(int index);
 		int 						getValueAtIndex(std::list<int> input, int index);
 
-		std::list<int>				copy_list(int start_idx, int end_idx);
+		void						sort_deque(int start_idx, int end_idx);
+		void						merge_deque(int start_idx, int mid_idx, int end_idx);
+		void						insert_deque(int start_idx, int mid_idx);
+
+
 	private:
 		// uint64_t		input_time;
 		std::deque<int> _deque;
 		std::list<int>  _list;
-		static const int		_K = 2;
+		static const int		_K = 5;
 };
 
 #endif

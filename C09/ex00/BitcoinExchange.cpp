@@ -44,7 +44,7 @@ BitcoinExchange & BitcoinExchange::operator=(const BitcoinExchange &copy)
 	return (*this);
 }
 
-void BitcoinExchange::printValues()
+void BitcoinExchange::printValues(void)
 {
     std::map<std::string, double>::iterator itr;
     for(itr = database.begin(); itr != database.end(); ++itr)
