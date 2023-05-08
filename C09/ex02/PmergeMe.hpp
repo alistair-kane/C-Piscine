@@ -42,7 +42,6 @@ class    PmergeMe {
 		void						merge_list(int start_idx, int mid_idx, int end_idx);
 		void						insert_list(int start_idx, int mid_idx);
 		std::list<int>				copy_list(int start_idx, int end_idx);
-		std::list<int>::iterator	getIteratorAtIndex(int index);
 		int 						getValueAtIndex(std::list<int> input, int index);
 
 		void						sort_deque(int start_idx, int end_idx);

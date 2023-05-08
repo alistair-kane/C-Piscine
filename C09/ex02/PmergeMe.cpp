@@ -6,7 +6,7 @@
 /*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:36:18 by alistair          #+#    #+#             */
-/*   Updated: 2023/05/08 19:24:17 by alkane           ###   ########.fr       */
+/*   Updated: 2023/05/08 19:40:15 by alkane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,14 @@ PmergeMe::PmergeMe(void)
 	std::cout << "\e[0;33mDefault Constructor called\e[0m" << std::endl;
 }
 
-double GetTimeStamp() {
+double GetTimeStamp()
+{
 	struct timeval tv;
 	double time;
+
 	gettimeofday(&tv,NULL);
 	time = tv.tv_sec + tv.tv_usec *1e-6;
 	return time;
-}
-
-// function to get iterator at index in list
-std::list<int>::iterator PmergeMe::getIteratorAtIndex(int index)
-{
-	// create iterator for list
-	std::list<int>::iterator it = _list.begin();
-	// iterate to the desired index
-	for(int i = 0; i < index; i++)
-		it++;
-	// return iterator at index
-	return it;
 }
 
 // function to get iterator at index in list
@@ -238,7 +228,7 @@ void	PmergeMe::sort_deque(int start_idx, int end_idx)
 
 PmergeMe::PmergeMe(char *argv[])
 {
-	// double begin = GetTimeStamp();
+	double begin = GetTimeStamp();
 
 	for (int i = 1; argv[i] != NULL; i++) 
 	{
@@ -254,36 +244,38 @@ PmergeMe::PmergeMe(char *argv[])
 		std::cout << *it << " ";
 	std::cout << std::endl;
 	
-	
-	// std::cout << "Before:\t";
-	// for (std::deque<int>::iterator it = _deque.begin(); it != _deque.end(); ++it)
-	// 	std::cout << *it << " ";
-	// std::cout << std::endl;
-	
-	// double elapsed = GetTimeStamp() - begin;
-	// std::cout << "Time measured: ";
-	// std::cout << std::fixed << std::setprecision(10) << elapsed / 1000 << "μs" << std::endl;
-	
-	// uint64_t list_begin = micros();
-	
-	// uint64_t list_sort_time = micros() - list_begin;
+	double elapsed = GetTimeStamp() - begin;
+	std::cout << "Time measured before sorts: ";
+	std::cout << std::fixed << std::setprecision(10) << elapsed / 1000 << "μs" << std::endl;
+
+	double	list_timer_start = GetTimeStamp();
 	sort_list(0, _list.size() - 1);
+	double list_sort_time = GetTimeStamp() - list_timer_start;
+	
 	std::cout << "After:\t";
 	for (std::list<int>::iterator it = _list.begin(); it != _list.end(); ++it)
 		std::cout << *it << " ";
 	std::cout << std::endl;
 
 	// std::cout << "_deque.size(): " << _deque.size() << std::endl;
-	// sort_deque(0, _deque.size() - 1);
-	// std::cout << "After:\t";
-	// for (std::deque<int>::iterator it = _deque.begin(); it != _deque.end(); ++it)
-	// 	std::cout << *it << " ";
-	// std::cout << std::endl;
-	
+	double	deque_timer_start = GetTimeStamp();
+	sort_deque(0, _deque.size() - 1);
+	double deque_sort_time = GetTimeStamp() - deque_timer_start;
 
-	// uint64_t deque_begin = micros();
-	
-	// uint64_t deque_input_time = micros() - deque_begin;
+	std::cout << "After:\t";
+	for (std::deque<int>::iterator it = _deque.begin(); it != _deque.end(); ++it)
+		std::cout << *it << " ";
+	std::cout << std::endl;
+
+	std::cout << "Time to process a range of\t" << _list.size() 
+		<< " elements with std::list :" << elapsed + list_sort_time / 1000 
+		<< "μs" << std::endl;;
+		
+	std::cout << "Time to process a range of\t" << _deque.size() 
+		<< " elements with std::deque :" << elapsed + deque_sort_time / 1000 
+		<< "μs" << std::endl;;
+
+	// std::cout << std::fixed << std::setprecision(10) << elapsed / 1000 << "μs" << std::endl;
 
 }
 
