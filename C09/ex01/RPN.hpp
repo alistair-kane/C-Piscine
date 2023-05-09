@@ -7,8 +7,9 @@
 # define PMERGEME_HPP
 
 #include <iostream>
+#include <sstream>
 #include <string>
-#include <vector>
+#include <stack>
 #include <stdexcept>
 #include <fstream>
 #include <algorithm>
@@ -21,14 +22,16 @@ class    RPN {
 	public:
 		RPN();
 		RPN(RPN const & src);
-		RPN(char *argv[]);
+		RPN(int argc, char *argv[]);
 		~RPN();
 
 		RPN & operator=(RPN const & rhs);
 
 	private:
-		std::vector<std::string>	_data;
-		static const std::string	_allowed[5];
+		int		_top_pop();
+		bool	_calculate(char *argv[]);
+
+		std::stack<int>				_data;
 };
 
 #endif
