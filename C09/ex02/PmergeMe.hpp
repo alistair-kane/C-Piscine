@@ -30,7 +30,7 @@ class    PmergeMe {
 	public:
 		PmergeMe();
 		PmergeMe(PmergeMe const & src);
-		PmergeMe(char *argv[]);
+		PmergeMe(char *argv[], int K);
 		~PmergeMe();
 
 		PmergeMe & operator=(PmergeMe const & rhs);
@@ -41,18 +41,24 @@ class    PmergeMe {
 		void						insert_list(int start_idx, int mid_idx);
 		std::list<int>::iterator	getIteratorAtIndex(int index);
 		int 						getValueAtIndex(std::list<int> input, int index);
+		void						print_list();
 		
 //deque functions
 		void						sort_deque(int start_idx, int end_idx);
 		void						merge_deque(int start_idx, int mid_idx, int end_idx);
 		void						insert_deque(int start_idx, int mid_idx);
 
+		void						printTimestamp(std::string container, unsigned long long int value);
+
+
+		void	printData(unsigned long long int value);
 
 	private:
 		// uint64_t		input_time;
 		std::deque<int>		_deque;
 		std::list<int>		_list;
-		static const int	_K = 5;
+		// static const int	_K = 5;
+		int					_K;
 };
 
 #endif

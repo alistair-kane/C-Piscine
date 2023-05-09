@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apielasz <apielasz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:36:18 by alistair          #+#    #+#             */
-/*   Updated: 2023/05/09 12:06:14 by apielasz         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:05:06 by alistair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ PmergeMe::PmergeMe(const PmergeMe &copy)
 // Destructor
 PmergeMe::~PmergeMe()
 {
-	std::cout << "\e[0;31mDestructor called\e[0m" << std::endl;
+	// std::cout << "\e[0;31mDestructor called\e[0m" << std::endl;
 }
 
 // Operator
@@ -40,19 +40,43 @@ PmergeMe & PmergeMe::operator=(const PmergeMe &copy)
 	return (*this);
 }
 
-double GetTimeStamp() {
+unsigned long long int getTimeStamp() 
+{
 	struct timeval tv;
-	double time;
 
-	gettimeofday(&tv,NULL);
-	time = tv.tv_sec + tv.tv_usec *1e-6;
-	return time;
+	gettimeofday(&tv,NULL);	
+	return static_cast<unsigned long long int>(tv.tv_sec) * 1000000 + tv.tv_usec;
 }
 
-PmergeMe::PmergeMe(char *argv[])
+void	PmergeMe::printTimestamp(std::string container, unsigned long long int value)
 {
-	double begin = GetTimeStamp();
+	std::cout << "Time to process a range of " << _deque.size() 
+		<< " elements with " << container << "\t:" << value
+		<< " μs" << "\tK = " << _K
+		<< std::endl;
+}
 
+
+void	PmergeMe::printData(unsigned long long int time)
+{
+	std::cout << _deque.size() << "," << time << "," << _K << ",";
+}
+
+
+void    PmergeMe::print_list() 
+{
+    std::list<int>::iterator it;
+    for (it = _list.begin(); it != _list.end(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+}
+
+PmergeMe::PmergeMe(char *argv[], int K)
+{
+	_K = K;
+	
+	unsigned long long int begin = getTimeStamp();
 	for (int i = 1; argv[i] != NULL; i++) 
 	{
 		long val = std::atol(argv[i]);
@@ -61,41 +85,23 @@ PmergeMe::PmergeMe(char *argv[])
 		_list.push_back(static_cast<int>(val));
 		_deque.push_back(static_cast<int>(val));
 	}
-
-	std::cout << "Before:\t";
-	for (std::list<int>::iterator it = _list.begin(); it != _list.end(); ++it)
-		std::cout << *it << " ";
-	std::cout << std::endl;
-
-	double elapsed = GetTimeStamp() - begin;
-	std::cout << "Time measured before sorts: ";
-	std::cout << std::fixed << std::setprecision(10) << elapsed / 1000 << "μs" << std::endl;
-
-	double	list_timer_start = GetTimeStamp();
+	// std::cout << "Before:\t";
+	// print_list();
+	unsigned long long int	list_timer_start = getTimeStamp();
+	unsigned long long int elapsed = list_timer_start - begin;
 	sort_list(0, _list.size() - 1);
-	double list_sort_time = GetTimeStamp() - list_timer_start;
-	
-	std::cout << "After:\t";
-	for (std::list<int>::iterator it = _list.begin(); it != _list.end(); ++it)
-		std::cout << *it << " ";
-	std::cout << std::endl;
-
-	double	deque_timer_start = GetTimeStamp();
+	unsigned long long int list_sort_time = getTimeStamp() - list_timer_start;
+	// std::cout << "After:\t";
+	// print_list();
+	unsigned long long int	deque_timer_start = getTimeStamp();
 	sort_deque(0, _deque.size() - 1);
-	double deque_sort_time = GetTimeStamp() - deque_timer_start;
-
-	std::cout << "After:\t";
-	for (std::deque<int>::iterator it = _deque.begin(); it != _deque.end(); ++it)
-		std::cout << *it << " ";
+	unsigned long long int deque_sort_time = getTimeStamp() - deque_timer_start;
+	// printTimestamp("std::list", elapsed + list_sort_time);
+	// printTimestamp("std::deque", elapsed + deque_sort_time);
+	printData(elapsed + list_sort_time);
+	printData(elapsed + deque_sort_time);
 	std::cout << std::endl;
-
-	std::cout << "Time to process a range of\t" << _list.size() 
-		<< " elements with std::list :" << elapsed + list_sort_time / 1000 
-		<< "μs" << std::endl;;
-		
-	std::cout << "Time to process a range of\t" << _deque.size() 
-		<< " elements with std::deque :" << elapsed + deque_sort_time / 1000 
-		<< "μs" << std::endl;;
+	
 }
 
 void	PmergeMe::sort_list(int start_idx, int end_idx)
@@ -160,25 +166,17 @@ void	PmergeMe::merge_list(int start_idx, int mid_idx, int end_idx)
 
 void	PmergeMe::insert_list(int start_idx, int mid_idx)
 {
-	std::list<int>::iterator it = _list.begin();
-	for (int i = 0; i < start_idx; i++)
-		++it;
+	std::list<int>::iterator it = getIteratorAtIndex(start_idx);
 	std::list<int>::iterator start_it = it;
-	std::list<int>::iterator end_it = _list.begin();
-	for (int i = 0; i < mid_idx; i++)
-		++end_it;
-
+	std::list<int>::iterator end_it = getIteratorAtIndex(mid_idx);
 	while (it != end_it) 
 	{
 		std::list<int>::iterator insertionPos = start_it;
-
 		while (insertionPos != it && *insertionPos <= *it)
 			++insertionPos;
-			
 		int tmp = *insertionPos;
 		*insertionPos = *it;
 		*it = tmp;
-		
 		it = insertionPos;
 		it++;
 	}
