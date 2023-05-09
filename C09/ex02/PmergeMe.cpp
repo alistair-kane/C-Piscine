@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alkane <alkane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: apielasz <apielasz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:36:18 by alistair          #+#    #+#             */
-/*   Updated: 2023/05/08 19:40:15 by alkane           ###   ########.fr       */
+/*   Updated: 2023/05/09 11:59:58 by apielasz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,9 @@ void	PmergeMe::sort_deque(int start_idx, int end_idx)
 
 PmergeMe::PmergeMe(char *argv[])
 {
+//TIMER -- ADD THIS
 	double begin = GetTimeStamp();
+///////////////////
 
 	for (int i = 1; argv[i] != NULL; i++) 
 	{
@@ -243,7 +245,8 @@ PmergeMe::PmergeMe(char *argv[])
 	for (std::list<int>::iterator it = _list.begin(); it != _list.end(); ++it)
 		std::cout << *it << " ";
 	std::cout << std::endl;
-	
+
+//TIMER -- ADD THIS
 	double elapsed = GetTimeStamp() - begin;
 	std::cout << "Time measured before sorts: ";
 	std::cout << std::fixed << std::setprecision(10) << elapsed / 1000 << "μs" << std::endl;
@@ -251,22 +254,25 @@ PmergeMe::PmergeMe(char *argv[])
 	double	list_timer_start = GetTimeStamp();
 	sort_list(0, _list.size() - 1);
 	double list_sort_time = GetTimeStamp() - list_timer_start;
+///////////////////
 	
 	std::cout << "After:\t";
 	for (std::list<int>::iterator it = _list.begin(); it != _list.end(); ++it)
 		std::cout << *it << " ";
 	std::cout << std::endl;
 
-	// std::cout << "_deque.size(): " << _deque.size() << std::endl;
+//TIMER -- ADD THIS
 	double	deque_timer_start = GetTimeStamp();
 	sort_deque(0, _deque.size() - 1);
 	double deque_sort_time = GetTimeStamp() - deque_timer_start;
+///////////////////
 
 	std::cout << "After:\t";
 	for (std::deque<int>::iterator it = _deque.begin(); it != _deque.end(); ++it)
 		std::cout << *it << " ";
 	std::cout << std::endl;
 
+//TIMER -- ADD THIS
 	std::cout << "Time to process a range of\t" << _list.size() 
 		<< " elements with std::list :" << elapsed + list_sort_time / 1000 
 		<< "μs" << std::endl;;
@@ -274,9 +280,9 @@ PmergeMe::PmergeMe(char *argv[])
 	std::cout << "Time to process a range of\t" << _deque.size() 
 		<< " elements with std::deque :" << elapsed + deque_sort_time / 1000 
 		<< "μs" << std::endl;;
+///////////////////
 
 	// std::cout << std::fixed << std::setprecision(10) << elapsed / 1000 << "μs" << std::endl;
-
 }
 
 PmergeMe::PmergeMe(const PmergeMe &copy)
