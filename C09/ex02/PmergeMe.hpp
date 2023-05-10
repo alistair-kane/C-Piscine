@@ -30,7 +30,7 @@ class    PmergeMe {
 	public:
 		PmergeMe();
 		PmergeMe(PmergeMe const & src);
-		PmergeMe(char *argv[], int K);
+		PmergeMe(char *argv[]);
 		~PmergeMe();
 
 		PmergeMe & operator=(PmergeMe const & rhs);
@@ -51,7 +51,7 @@ class    PmergeMe {
 		void						printTimestamp(std::string container, unsigned long long int value);
 
 
-		void	printData(unsigned long long int value);
+		void						printData(unsigned long long int value);
 
 	private:
 		// uint64_t		input_time;

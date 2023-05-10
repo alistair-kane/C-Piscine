@@ -6,7 +6,7 @@
 /*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:33:13 by alistair          #+#    #+#             */
-/*   Updated: 2023/05/09 14:10:45 by alistair         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:06:47 by alistair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int main(int argc, char **argv)
     }
     try 
     {
-        for (int i = 2; i < 3000; i++)
-            PmergeMe    obj(argv, i);
+        PmergeMe obj(argv);
     }
     catch (std::exception & err) 
     {
