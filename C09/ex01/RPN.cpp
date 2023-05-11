@@ -6,7 +6,7 @@
 /*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:36:18 by alistair          #+#    #+#             */
-/*   Updated: 2023/05/09 05:34:58 by alistair         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:49:52 by alistair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 // Constructors
 RPN::RPN(void)
 {
-	std::cout << "\e[0;33mDefault Constructor called\e[0m" << std::endl;
+	// std::cout << "\e[0;33mDefault Constructor called\e[0m" << std::endl;
 }
 
 RPN::RPN(int argc, char *argv[])
 {
 	if (argc != 2)
 	    throw std::invalid_argument("Please enter just 1 expression");
-	if (_calculate(argv) && _data.size() == 1 && _data.top() > 0)
+	if (_calculate(argv) && _data.size() == 1)
     	std::cout << _data.top() << " " << std::endl;
 	else
 		throw std::invalid_argument("Error: Invalid input");
@@ -30,33 +30,33 @@ RPN::RPN(int argc, char *argv[])
 
 RPN::RPN(const RPN &copy)
 {
-	std::cout << "\e[0;33mCopy Constructor called\e[0m" << std::endl;
+	// std::cout << "\e[0;33mCopy Constructor called\e[0m" << std::endl;
 	*this = copy;
 }
 
 // Destructor
 RPN::~RPN()
 {
-	std::cout << "\e[0;31mDestructor called\e[0m" << std::endl;
+	// std::cout << "\e[0;31mDestructor called\e[0m" << std::endl;
 }
 
 // Operators
 RPN & RPN::operator=(const RPN &copy)
 {
-	std::cout << "\e[0;36mCopy assignment operator called\e[0m" << std::endl;
+	// std::cout << "\e[0;36mCopy assignment operator called\e[0m" << std::endl;
 	this->_data = copy._data;
 	return (*this);
 }
 
 int	RPN::_top_pop()
 {
-	int val = -1;
 	if (!_data.empty())
 	{
-		val = _data.top();
+		int val = _data.top();
 		_data.pop();
+		return (val);
 	}
-	return(val);
+	throw std::invalid_argument("Error: Invalid input (stack_empty)");
 }
 
 bool	RPN::_calculate(char *argv[])

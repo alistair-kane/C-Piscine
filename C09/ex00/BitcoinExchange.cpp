@@ -3,7 +3,7 @@
 // Constructors
 BitcoinExchange::BitcoinExchange(void)
 {
-	std::cout << "\e[0;33mDefault Constructor called\e[0m" << std::endl;
+	// std::cout << "\e[0;33mDefault Constructor called\e[0m" << std::endl;
 }
 
 BitcoinExchange::BitcoinExchange(std::string filename)
@@ -26,20 +26,20 @@ BitcoinExchange::BitcoinExchange(std::string filename)
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
 {
-	std::cout << "\e[0;33mCopy Constructor called\e[0m" << std::endl;
+	// std::cout << "\e[0;33mCopy Constructor called\e[0m" << std::endl;
 	*this = copy;
 }
 
 // Destructor
 BitcoinExchange::~BitcoinExchange()
 {
-	std::cout << "\e[0;31mDestructor called\e[0m" << std::endl;
+	// std::cout << "\e[0;31mDestructor called\e[0m" << std::endl;
 }
 
 // Operators
 BitcoinExchange & BitcoinExchange::operator=(const BitcoinExchange &copy)
 {
-	std::cout << "\e[0;36mCopy assignment operator called\e[0m" << std::endl;
+	// std::cout << "\e[0;36mCopy assignment operator called\e[0m" << std::endl;
 	this->database = copy.database;
 	return (*this);
 }

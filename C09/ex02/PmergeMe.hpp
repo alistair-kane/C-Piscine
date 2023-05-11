@@ -35,30 +35,27 @@ class    PmergeMe {
 
 		PmergeMe & operator=(PmergeMe const & rhs);
 
+		void	printTimestamp(std::string container, unsigned long value);
+		void	printData(unsigned long value);
+		void	do_sorts(void);
+
 //list functions
-		void						sort_list(int start_idx, int end_idx);
-		void						merge_list(int start_idx, int mid_idx, int end_idx);
-		void						insert_list(int start_idx, int mid_idx);
-		std::list<int>::iterator	getIteratorAtIndex(int index);
-		int 						getValueAtIndex(std::list<int> input, int index);
-		void						print_list();
+		void	sort_list(int start_idx, int end_idx);
+		void	merge_list(int start_idx, int mid_idx, int end_idx);
+		void	insert_list(int start_idx, int mid_idx);
+		int 	getValueAtIndex(std::list<int> input, int index);
+		void	print_list(void);
 		
 //deque functions
-		void						sort_deque(int start_idx, int end_idx);
-		void						merge_deque(int start_idx, int mid_idx, int end_idx);
-		void						insert_deque(int start_idx, int mid_idx);
-
-		void						printTimestamp(std::string container, unsigned long long int value);
-
-
-		void						printData(unsigned long long int value);
+		void	sort_deque(int start_idx, int end_idx);
+		void	merge_deque(int start_idx, int mid_idx, int end_idx);
+		void	insert_deque(int start_idx, int mid_idx);
 
 	private:
-		// uint64_t		input_time;
-		std::deque<int>		_deque;
-		std::list<int>		_list;
-		// static const int	_K = 5;
-		int					_K;
+		std::deque<int>	_deque;
+		std::list<int>	_list;
+		unsigned long	_begin_time;
+		int				_K;
 };
 
 #endif

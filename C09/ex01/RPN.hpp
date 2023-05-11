@@ -30,8 +30,8 @@ class    RPN {
 	private:
 		int		_top_pop();
 		bool	_calculate(char *argv[]);
-
-		std::stack<int>				_data;
+		
+		std::stack<int>	_data;
 };
 
 #endif

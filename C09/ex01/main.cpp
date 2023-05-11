@@ -6,7 +6,7 @@
 /*   By: alistair <alistair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:52:13 by alistair          #+#    #+#             */
-/*   Updated: 2023/05/09 05:33:09 by alistair         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:48:39 by alistair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,4 @@ int main(int argc, char **argv)
         std::cerr << err.what() << std::endl;
     }
     return 0;
-} 
+}
