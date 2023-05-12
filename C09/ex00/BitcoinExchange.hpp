@@ -5,6 +5,8 @@
 # include <string>
 # include <iostream>
 # include <fstream>
+# include <iomanip>
+# include <cstdlib>
 # include <sstream>
 
 class BitcoinExchange
@@ -12,7 +14,7 @@ class BitcoinExchange
 	public:
 		// Constructors
 		BitcoinExchange(void);
-		BitcoinExchange(std::string filename);
+		BitcoinExchange(const char *filename);
 		// Copy (cannonical)
 		BitcoinExchange(BitcoinExchange const & copy);
 		// Destructor

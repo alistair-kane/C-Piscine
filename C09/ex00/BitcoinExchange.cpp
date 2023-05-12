@@ -6,7 +6,7 @@ BitcoinExchange::BitcoinExchange(void)
 	// std::cout << "\e[0;33mDefault Constructor called\e[0m" << std::endl;
 }
 
-BitcoinExchange::BitcoinExchange(std::string filename)
+BitcoinExchange::BitcoinExchange(const char *filename)
 {
     // populate the map with file
     std::fstream data_file;
@@ -24,7 +24,7 @@ BitcoinExchange::BitcoinExchange(std::string filename)
     }
 }
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
+BitcoinExchange::BitcoinExchange(BitcoinExchange const & copy)
 {
 	// std::cout << "\e[0;33mCopy Constructor called\e[0m" << std::endl;
 	*this = copy;
