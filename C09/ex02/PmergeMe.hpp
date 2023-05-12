@@ -23,7 +23,8 @@
 #include <stdexcept>
 #include <fstream>
 #include <sys/time.h>
-
+#include <climits>
+#include <cstdlib>
 
 class    PmergeMe {
 
